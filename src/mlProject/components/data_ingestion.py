@@ -12,7 +12,7 @@ class DataIngestion:
         self.config = config
 
 
-    
+
     def download_file(self):
         if not os.path.exists(self.config.local_data_file):
             filename, headers = request.urlretrieve(
@@ -35,4 +35,10 @@ class DataIngestion:
         os.makedirs(unzip_path, exist_ok=True)
         with zipfile.ZipFile(self.config.local_data_file, 'r') as zip_ref:
             zip_ref.extractall(unzip_path)
-  
+
+    def extract_csv_file(self):
+        """
+        CSV file is already downloaded, no extraction needed
+        This method is included for pipeline consistency
+        """
+        logger.info(f"CSV file is already available at {self.config.local_data_file}")
